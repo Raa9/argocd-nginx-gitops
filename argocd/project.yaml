@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+
+metadata:
+  name: nginx-project
+  namespace: argocd
+
+spec:
+  description: Nginx GitOps Project
+
+  sourceRepos:
+    - https://github.com/Raa9/argocd-nginx-gitops.git
+
+  destinations:
+    - namespace: nginx-gitops
+      server: https://kubernetes.default.svc
+
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
